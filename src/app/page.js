@@ -1,8 +1,6 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
-    <main class="ml-60 pt-16 max-h-screen overflow-auto">
+    <main className="ml-0 md:ml-60 pt-16 max-h-screen overflow-auto">
       <div class="px-6 py-8">
         <div class="max-w-4xl mx-auto">
           <div class="bg-white rounded-3xl p-8 mb-5">
