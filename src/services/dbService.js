@@ -172,3 +172,34 @@ export const updateSale = async ({
     return Promise.reject(error);
   }
 };
+
+export const addPayment = async ({ amount, paymentDate, note, customerId }) => {
+  try {
+    const payment = await prisma.payment.create({
+      data: {
+        amount,
+        paymentDate,
+        note,
+        customerId,
+      },
+    });
+    return payment;
+  } catch (error) {
+    console.error(error);
+    return Promise.reject(error);
+  }
+};
+
+export const getPayments = async () => {
+  try {
+    const payments = await prisma.payment.findMany({
+      include: {
+        customer: true,
+      },
+    });
+    return payments;
+  } catch (error) {
+    console.error(error);
+    return Promise.reject(error);
+  }
+};

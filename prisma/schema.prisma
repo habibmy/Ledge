@@ -25,14 +25,15 @@ model Sale {
 }
 
 model Customer {
-  id          Int      @id @default(autoincrement())
+  id          Int       @id @default(autoincrement())
   name        String
   address     String?
   phone       String?
   customRates Rate[]
-  createdAt   DateTime @default(now()) @db.Timestamptz(3)
-  updatedAt   DateTime @updatedAt() @db.Timestamptz(3)
+  createdAt   DateTime  @default(now()) @db.Timestamptz(3)
+  updatedAt   DateTime  @updatedAt() @db.Timestamptz(3)
   sales       Sale[]
+  payments    Payment[]
 
   @@map("customers")
 }
@@ -47,4 +48,17 @@ model Rate {
   updatedAt  DateTime  @updatedAt() @db.Timestamptz(3)
 
   @@map("rates")
+}
+
+model Payment {
+  id          Int      @id @default(autoincrement())
+  amount      Decimal  @db.Money
+  customer    Customer @relation(fields: [customerId], references: [id])
+  customerId  Int
+  paymentDate DateTime @db.Timestamptz(3)
+  createdAt   DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt   DateTime @updatedAt() @db.Timestamptz(3)
+  note        String?
+
+  @@map("payments")
 }
