@@ -1,4 +1,6 @@
-const { Prisma } = require("@prisma/client");
+"use server";
+
+import prisma from "@/lib/prismaClient";
 
 // add a customer to db
 export const addCustomer = async ({
@@ -18,29 +20,53 @@ export const addCustomer = async ({
     };
   }
   try {
-    const customer = await Prisma.customer.create({
+    const customer = await prisma.customer.create({
       data: customerData,
     });
     return customer;
   } catch (error) {
     console.error(error);
-    return new Promise.reject(error);
+    return Promise.reject(error);
   }
 };
 
 export const getCustomers = async () => {
   try {
-    const customers = await Prisma.customer.findMany();
+    const customers = await prisma.customer.findMany();
     return customers;
   } catch (error) {
     console.error(error);
-    return new Promise.reject(error);
+    return Promise.reject(error);
+  }
+};
+
+// get customers name and id
+export const getCustomersWithRates = async () => {
+  try {
+    let customers = await prisma.customer.findMany({
+      select: {
+        id: true,
+        name: true,
+        rates: true,
+      },
+    });
+    customers = customers.map(async (customer) => {
+      return {
+        ...customer,
+        rates: await customer.rates(),
+      };
+    });
+    console.log(Promise.all(customers));
+    return Promise.all(customers);
+  } catch (error) {
+    console.error(error);
+    return Promise.reject(error);
   }
 };
 
 export const getCustomer = async (id) => {
   try {
-    const customer = await Prisma.customer.findUnique({
+    const customer = await prisma.customer.findUnique({
       where: {
         id,
       },
@@ -51,7 +77,7 @@ export const getCustomer = async (id) => {
     return customer;
   } catch (error) {
     console.error(error);
-    return new Promise.reject(error);
+    return Promise.reject(error);
   }
 };
 
@@ -65,7 +91,7 @@ export const createSale = async ({
   customerId,
 }) => {
   try {
-    const sale = await Prisma.sale.create({
+    const sale = await prisma.sale.create({
       data: {
         amount,
         date,
@@ -79,14 +105,14 @@ export const createSale = async ({
     return sale;
   } catch (error) {
     console.error(error);
-    return new Promise.reject(error);
+    return Promise.reject(error);
   }
 };
 
 // Get sales with customer name
 export const getSales = async () => {
   try {
-    const sales = await Prisma.sale.findMany({
+    const sales = await prisma.sale.findMany({
       include: {
         customer: true,
       },
@@ -94,13 +120,13 @@ export const getSales = async () => {
     return sales;
   } catch (error) {
     console.error(error);
-    return new Promise.reject(error);
+    return Promise.reject(error);
   }
 };
 
 export const getSale = async (id) => {
   try {
-    const sale = await Prisma.sale.findUnique({
+    const sale = await prisma.sale.findUnique({
       where: {
         id,
       },
@@ -111,7 +137,7 @@ export const getSale = async (id) => {
     return sale;
   } catch (error) {
     console.error(error);
-    return new Promise.reject(error);
+    return Promise.reject(error);
   }
 };
 
@@ -126,7 +152,7 @@ export const updateSale = async ({
   customerId,
 }) => {
   try {
-    const sale = await Prisma.sale.update({
+    const sale = await prisma.sale.update({
       where: {
         id,
       },
@@ -143,6 +169,6 @@ export const updateSale = async ({
     return sale;
   } catch (error) {
     console.error(error);
-    return new Promise.reject(error);
+    return Promise.reject(error);
   }
 };

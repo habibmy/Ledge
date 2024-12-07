@@ -11,15 +11,15 @@ datasource db {
 model Sale {
   id          Int      @id @default(autoincrement())
   description String?
-  amount      Decimal
+  amount      Decimal  @db.Money
   size        Int
-  quantity    Decimal
-  rate        Decimal
+  quantity    Decimal  @db.Money
+  rate        Decimal  @db.Money
   customer    Customer @relation(fields: [customerId], references: [id])
   customerId  Int
-  date        DateTime
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt()
+  date        DateTime @db.Timestamptz(3)
+  createdAt   DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt   DateTime @updatedAt() @db.Timestamptz(3)
 
   @@map("sales")
 }
@@ -30,8 +30,8 @@ model Customer {
   address     String?
   phone       String?
   customRates Rate[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt()
+  createdAt   DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt   DateTime @updatedAt() @db.Timestamptz(3)
   sales       Sale[]
 
   @@map("customers")
@@ -39,12 +39,12 @@ model Customer {
 
 model Rate {
   id         Int       @id @default(autoincrement())
-  size       Int // Size of the carry bag
-  rate       Decimal // Default rate for this size
+  size       Int
+  rate       Decimal   @db.Money
   customer   Customer? @relation(fields: [customerId], references: [id])
   customerId Int? // Nullable to support global default rates
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt()
+  createdAt  DateTime  @default(now()) @db.Timestamptz(3)
+  updatedAt  DateTime  @updatedAt() @db.Timestamptz(3)
 
   @@map("rates")
 }
