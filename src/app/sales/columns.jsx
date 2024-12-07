@@ -5,10 +5,6 @@ const { ArrowUpDown, ArrowUp, ArrowDown } = require("lucide-react");
 
 export const columns = [
   {
-    accessorKey: "amount",
-    header: "Amount",
-  },
-  {
     accessorKey: "date",
     cell: ({ row }) => {
       const date = row.getValue("date");
@@ -33,6 +29,22 @@ export const columns = [
         </Button>
       );
     },
+  },
+  {
+    accessorKey: "customer.name",
+    header: "Customer",
+  },
+  {
+    accessorKey: "quantity",
+    header: "Quantity",
+  },
+  {
+    accessorKey: "size",
+    header: "Size",
+  },
+  {
+    accessorKey: "amount",
+    header: "Amount",
   },
   {
     accessorKey: "description",

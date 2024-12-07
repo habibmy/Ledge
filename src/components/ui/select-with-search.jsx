@@ -67,9 +67,14 @@ export default function SelectWithSearch({
                 {options.map((option) => (
                   <CommandItem
                     key={option.value}
-                    value={option.value}
+                    value={option.value.toString()} // Pass the value as a string for compatibility
                     onSelect={(currentValue) => {
-                      onChange(currentValue === value ? "" : currentValue);
+                      const normalizedValue = isNaN(Number(currentValue))
+                        ? currentValue
+                        : Number(currentValue); // Convert back to number if needed
+                      onChange(
+                        normalizedValue === value ? "" : normalizedValue
+                      );
                       setOpen(false);
                     }}
                   >

@@ -1,12 +1,12 @@
 import React from "react";
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
+import { getSales } from "@/services/dbService";
 
 const page = async () => {
   let data = [];
   try {
-    const resp = await fetch("http://localhost:3000/api");
-    data = await resp.json();
+    data = await getSales();
   } catch (error) {
     console.error(error);
   }
