@@ -1,34 +1,56 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# **Ledge: Balance Your Business with Ease**
 
-## Getting Started
+Ledge is a lightweight and intuitive accounting application designed to help small businesses streamline their financial workflows. Easily manage customer details, track sales, and keep payments and balances organized—all in one platform.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## **Features**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Manage customer details with options for custom or default rates.
+- Record sales data, including size, quantity, and pricing.
+- Automatically calculate outstanding balances and track payments.
+- Generate dynamic financial summaries for better decision-making.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## **To-Do**
 
-## Learn More
+### **Core Features**
 
-To learn more about Next.js, take a look at the following resources:
+- [x] Customer creation and management.
+- [x] Assign custom rates for specific customers.
+- [x] Fetch default rates for customers without custom rates.
+- [x] Record sales and calculate totals.
+- [ ] Add payment tracking for customers.
+- [ ] Compute and display outstanding balances for customers.
+- [ ] Dashboard for financial summaries and insights.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### **User Interface**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- [ ] Create user-friendly forms for adding and editing data.
+- [ ] Display customer balances and payment history in an organized manner.
+- [ ] Interactive sales reports with filtering and export options.
 
-## Deploy on Vercel
+### **Enhancements**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- [ ] Implement user authentication for secure access.
+- [ ] Support for multiple users and roles.
+- [ ] Add notifications for pending balances and overdue payments.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+---
+
+## **Getting Started**
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/habibmy/ledge.git
+   ```
+2. Install dependencies:
+   ```bash
+   npm install`
+   ```
+3. Set up the `.env` file with your database and application configuration.
+4. Run the development server:
+   ```bash
+   npm run dev`
+   ```
