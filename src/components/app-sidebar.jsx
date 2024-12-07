@@ -1,4 +1,4 @@
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react"
+import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
 
 import {
   Sidebar,
@@ -9,28 +9,23 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 
 // Menu items.
 const items = [
   {
     title: "Home",
-    url: "#",
+    url: "/",
     icon: Home,
   },
   {
-    title: "Add Sale",
-    url: "#",
-    icon: Inbox,
-  },
-  {
-    title: "View Sales",
-    url: "#",
+    title: "Add Customer",
+    url: "/customers/add",
     icon: Calendar,
   },
   {
     title: "View Ledger",
-    url: "#",
+    url: "/customers",
     icon: Search,
   },
   {
@@ -38,7 +33,20 @@ const items = [
     url: "#",
     icon: Settings,
   },
-]
+];
+
+const salesItems = [
+  {
+    title: "Add Sale",
+    url: "/sales/add",
+    icon: Inbox,
+  },
+  {
+    title: "View Sales",
+    url: "/sales",
+    icon: Inbox,
+  },
+];
 
 export function AppSidebar() {
   return (
@@ -61,7 +69,24 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+        <SidebarGroup>
+          <SidebarGroupLabel>Sale</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {salesItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild>
+                    <a href={item.url}>
+                      <item.icon />
+                      <span>{item.title}</span>
+                    </a>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
       </SidebarContent>
     </Sidebar>
-  )
+  );
 }
