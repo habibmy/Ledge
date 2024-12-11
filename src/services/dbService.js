@@ -74,6 +74,7 @@ export const getCustomer = async (id) => {
         customRates: true,
       },
     });
+    console.log(customer);
     return customer;
   } catch (error) {
     console.error(error);
@@ -100,6 +101,15 @@ export const createSale = async ({
         size,
         quantity,
         rate,
+      },
+    });
+
+    await prisma.customer.update({
+      where: { id: customerId },
+      data: {
+        balance: {
+          increment: amount, // Add sale amount to balance
+        },
       },
     });
     return sale;
@@ -152,6 +162,8 @@ export const updateSale = async ({
   customerId,
 }) => {
   try {
+    const oldSale = await prisma.sale.findUnique({ where: { id } });
+
     const sale = await prisma.sale.update({
       where: {
         id,
@@ -166,6 +178,17 @@ export const updateSale = async ({
         rate,
       },
     });
+
+    const balanceChange = amount - oldSale.amount;
+    await prisma.customer.update({
+      where: { id: customerId },
+      data: {
+        balance: {
+          increment: balanceChange, // Adjust balance based on the difference
+        },
+      },
+    });
+
     return sale;
   } catch (error) {
     console.error(error);
@@ -181,6 +204,15 @@ export const addPayment = async ({ amount, paymentDate, note, customerId }) => {
         paymentDate,
         note,
         customerId,
+      },
+    });
+
+    await prisma.customer.update({
+      where: { id: customerId },
+      data: {
+        balance: {
+          decrement: amount, // Subtract payment from balance
+        },
       },
     });
     return payment;
