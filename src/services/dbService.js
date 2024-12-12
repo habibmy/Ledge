@@ -56,7 +56,6 @@ export const getCustomersWithRates = async () => {
         rates: await customer.rates(),
       };
     });
-    console.log(Promise.all(customers));
     return Promise.all(customers);
   } catch (error) {
     console.error(error);

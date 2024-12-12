@@ -41,7 +41,7 @@ const formSchema = z.object({
   quantity: z.string(),
   rate: z.string(),
   amount: z.string(),
-  note: z.string().optional(),
+  description: z.string().optional(),
   customerId: z.number(),
 });
 
@@ -260,7 +260,7 @@ export default function AddSaleForm({ customers }) {
 
         <FormField
           control={form.control}
-          name="note"
+          name="description"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Notes</FormLabel>

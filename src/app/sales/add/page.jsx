@@ -1,5 +1,5 @@
 import React from "react";
-import AddSaleForm from "./form";
+import AddSaleForm from "../add/form";
 import { getCustomersWithRates } from "@/services/dbService";
 
 const AddSalePage = async () => {
