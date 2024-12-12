@@ -1,7 +1,9 @@
 "use client";
 
-const { Button } = require("@/components/ui/button");
-const { ArrowUpDown, ArrowUp, ArrowDown } = require("lucide-react");
+import Link from "next/link";
+
+import { ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export const columns = [
   {
@@ -49,5 +51,13 @@ export const columns = [
   {
     accessorKey: "description",
     header: "Description",
+  },
+  {
+    id: "actions",
+    cell: ({ row }) => {
+      const id = row.original.id;
+
+      return <Link href={"/sales/update/" + id}>{id}</Link>;
+    },
   },
 ];

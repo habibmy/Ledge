@@ -221,6 +221,45 @@ export const addPayment = async ({ amount, paymentDate, note, customerId }) => {
   }
 };
 
+export const updatePayment = async ({
+  id,
+  amount,
+  paymentDate,
+  note,
+  customerId,
+}) => {
+  try {
+    const oldPayment = await prisma.payment.findUnique({ where: { id } });
+
+    const payment = await prisma.payment.update({
+      where: {
+        id,
+      },
+      data: {
+        amount,
+        paymentDate,
+        note,
+        customerId,
+      },
+    });
+
+    const balanceChange = amount - oldPayment.amount;
+    await prisma.customer.update({
+      where: { id: customerId },
+      data: {
+        balance: {
+          decrement: balanceChange, // Adjust balance based on the difference
+        },
+      },
+    });
+
+    return payment;
+  } catch (error) {
+    console.error(error);
+    return Promise.reject(error);
+  }
+};
+
 export const getPayments = async () => {
   try {
     const payments = await prisma.payment.findMany({
@@ -229,6 +268,23 @@ export const getPayments = async () => {
       },
     });
     return payments;
+  } catch (error) {
+    console.error(error);
+    return Promise.reject(error);
+  }
+};
+
+export const getPayment = async (id) => {
+  try {
+    const payment = await prisma.payment.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        customer: true,
+      },
+    });
+    return payment;
   } catch (error) {
     console.error(error);
     return Promise.reject(error);
