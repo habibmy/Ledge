@@ -119,14 +119,41 @@ export const createSale = async ({
 };
 
 // Get sales with customer name
-export const getSales = async () => {
+// export const getSales = async () => {
+//   try {
+//     const sales = await prisma.sale.findMany({
+//       include: {
+//         customer: true,
+//       },
+//     });
+//     return sales;
+//   } catch (error) {
+//     console.error(error);
+//     return Promise.reject(error);
+//   }
+// };
+
+export const getSales = async (page = 1, pageSize = 20) => {
+  const skip = (page - 1) * pageSize;
+
   try {
     const sales = await prisma.sale.findMany({
+      skip,
+      take: pageSize,
       include: {
-        customer: true,
+        customer: true, // Include related customer data
+      },
+      orderBy: {
+        date: "desc", // Order by the sale date
       },
     });
-    return sales;
+
+    const totalSales = await prisma.sale.count(); // Get total sales count for pagination
+
+    return {
+      sales,
+      totalSales,
+    };
   } catch (error) {
     console.error(error);
     return Promise.reject(error);
@@ -260,19 +287,43 @@ export const updatePayment = async ({
   }
 };
 
-export const getPayments = async () => {
+export const getPayments = async (page = 1, pageSize = 20) => {
   try {
+    const skip = (page - 1) * pageSize;
     const payments = await prisma.payment.findMany({
+      skip,
+      take: pageSize,
+      orderBy: {
+        paymentDate: "desc", // Ensure sorted by payment date
+      },
       include: {
         customer: true,
       },
     });
-    return payments;
+    const totalPayments = await prisma.payment.count();
+    return {
+      payments,
+      totalPayments,
+    };
   } catch (error) {
     console.error(error);
     return Promise.reject(error);
   }
 };
+
+// export const getPayments = async () => {
+//   try {
+//     const payments = await prisma.payment.findMany({
+//       include: {
+//         customer: true,
+//       },
+//     });
+//     return payments;
+//   } catch (error) {
+//     console.error(error);
+//     return Promise.reject(error);
+//   }
+// };
 
 export const getPayment = async (id) => {
   try {
