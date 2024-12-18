@@ -20,7 +20,12 @@ import {
 } from "@/components/ui/table";
 
 export function DataTable({ columns, data }) {
-  const [sorting, setSorting] = React.useState([]);
+  const [sorting, setSorting] = React.useState([
+    {
+      id: "paymentDate",
+      desc: true,
+    },
+  ]);
 
   const table = useReactTable({
     data,
