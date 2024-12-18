@@ -59,9 +59,8 @@ export const columns = [
 
       return (
         <Link href={"/sales/update/" + id}>
-          <Button>
-            <Pencil className="mr-2 h-4 w-4" />
-            {id}
+          <Button size="icon">
+            <Pencil className="h-4 w-4" />
           </Button>
         </Link>
       );
