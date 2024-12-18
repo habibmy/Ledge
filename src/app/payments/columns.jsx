@@ -1,7 +1,9 @@
 "use client";
 
+import Link from "next/link";
+
 const { Button } = require("@/components/ui/button");
-const { ArrowUpDown, ArrowUp, ArrowDown } = require("lucide-react");
+const { ArrowUpDown, ArrowUp, ArrowDown, Pencil } = require("lucide-react");
 
 export const columns = [
   {
@@ -35,4 +37,19 @@ export const columns = [
     header: "Customer",
   },
   { accessorKey: "amount", header: "Amount" },
+  {
+    id: "actions",
+    cell: ({ row }) => {
+      const id = row.original.id;
+
+      return (
+        <Link href={"/payments/update/" + id}>
+          <Button>
+            <Pencil className="mr-2 h-4 w-4" />
+            {id}
+          </Button>
+        </Link>
+      );
+    },
+  },
 ];

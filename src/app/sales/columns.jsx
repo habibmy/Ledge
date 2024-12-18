@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-import { ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
+import { ArrowUpDown, ArrowUp, ArrowDown, Pencil } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export const columns = [
@@ -57,7 +57,14 @@ export const columns = [
     cell: ({ row }) => {
       const id = row.original.id;
 
-      return <Link href={"/sales/update/" + id}>{id}</Link>;
+      return (
+        <Link href={"/sales/update/" + id}>
+          <Button>
+            <Pencil className="mr-2 h-4 w-4" />
+            {id}
+          </Button>
+        </Link>
+      );
     },
   },
 ];
