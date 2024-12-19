@@ -19,6 +19,16 @@ export const addVendor = async ({ name, address, phone, balance }) => {
   }
 };
 
+export const getVendors = async () => {
+  try {
+    const vendors = await prisma.vendor.findMany();
+    return vendors;
+  } catch (error) {
+    console.error(error);
+    return Promise.reject(error);
+  }
+};
+
 export const addVendorPayment = async ({
   amount,
   paymentDate,
