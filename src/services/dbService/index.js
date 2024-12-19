@@ -5,13 +5,7 @@ import {
   getCustomers,
   getCustomersWithRates,
 } from "./customersDbService";
-import { addVendor, addVendorPayment } from "./vendorDbService";
-import {
-  addPayment,
-  updatePayment,
-  getPayments,
-  getPayment,
-} from "./customerPaymentsDbService";
+import { addVendor, getVendors } from "./vendorDbService";
 
 export {
   createSale,
@@ -22,9 +16,5 @@ export {
   getCustomers,
   getCustomersWithRates,
   addVendor,
-  addPayment,
-  updatePayment,
-  getPayments,
-  getPayment,
-  addVendorPayment,
+  getVendors,
 };

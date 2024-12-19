@@ -1,6 +1,7 @@
 import React from "react";
-import { getCustomers, getPayment } from "@/services/dbService";
-import UpdatePaymentForm from "./form";
+import { getCustomers } from "@/services/dbService";
+import PaymentForm from "@/components/paymentForm";
+import { getPayment } from "@/services/paymentService";
 
 const UpdatePaymentPage = async ({ params }) => {
   const { paymentId } = params;
@@ -16,7 +17,13 @@ const UpdatePaymentPage = async ({ params }) => {
   return (
     <div>
       <h3 className="text-3xl font-semibold text-center">Update payment</h3>
-      {payment && <UpdatePaymentForm customers={customers} payment={payment} />}
+      {payment && (
+        <PaymentForm
+          customers={customers}
+          payment={payment}
+          entityType={"customer"}
+        />
+      )}
     </div>
   );
 };

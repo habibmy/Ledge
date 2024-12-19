@@ -1,6 +1,6 @@
 import React from "react";
-import AddPaymentForm from "./form";
 import { getCustomers } from "@/services/dbService";
+import PaymentForm from "@/components/paymentForm";
 
 const AddPaymentPage = async () => {
   let customers = [];
@@ -13,7 +13,7 @@ const AddPaymentPage = async () => {
   return (
     <div>
       <h3 className="text-3xl font-semibold text-center">Add a payment</h3>
-      <AddPaymentForm customers={customers} />
+      <PaymentForm customers={customers} entityType={"customer"} />
     </div>
   );
 };

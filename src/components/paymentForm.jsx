@@ -25,35 +25,54 @@ import { Calendar as CalendarIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import SelectWithSearch from "@/components/ui/select-with-search";
-import { addPayment, updatePayment } from "@/services/dbService";
+import {
+  addPayment,
+  addVendorPayment,
+  updatePayment,
+  updateVendorPayment,
+} from "@/services/paymentService";
 
-const formSchema = z.object({
-  paymentDate: z.coerce.date(),
-  amount: z.string(),
-  note: z.string().optional(),
-  customerId: z.number(),
-});
+const paymnetSchema = z
+  .object({
+    paymentDate: z.coerce.date(),
+    amount: z.string(),
+    note: z.string().optional(),
+    customerId: z.number().optional(),
+    vendorId: z.number().optional(),
+  })
+  .refine((data) => data.customerId || data.vendorId, {
+    message: "Either customerId or vendorId must be provided",
+    path: ["customerId", "vendorId"],
+  });
 
-export default function UpdatePaymentForm({ customers, payment }) {
-  const [customerOptions, setCustomerOptions] = useState([]);
+export default function PaymentForm({
+  customers,
+  vendors,
+  entityType,
+  payment,
+}) {
+  const [entityOptions, setEntityOptions] = useState([]);
+
+  const entities = entityType === "customer" ? customers : vendors;
 
   useEffect(() => {
-    const options = customers.map((customer) => {
+    const options = entities.map((entity) => {
       return {
-        value: customer.id,
-        label: customer.name,
+        value: entity.id,
+        label: entity.name,
       };
     });
-    setCustomerOptions(options);
-  }, [customers]);
+    setEntityOptions(options);
+  }, [entities]);
 
   const form = useForm({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(paymnetSchema),
+
     defaultValues: {
       paymentDate: payment?.paymentDate || new Date(),
       amount: payment?.amount || "",
       note: payment?.note || "",
-      customerId: payment?.customerId || "",
+      [`${entityType}Id`]: payment?.[`${entityType}Id`] || "",
     },
   });
 
@@ -61,27 +80,30 @@ export default function UpdatePaymentForm({ customers, payment }) {
 
   async function onSubmit(values) {
     try {
-      const updateData = {
-        id: payment.id,
+      const data = {
         paymentDate: values.paymentDate,
         note: values.note,
-        customerId: Number(values.customerId),
         amount: Number(values.amount),
       };
-      console.log(updateData);
-      // await createSale(values);
+      if (payment) {
+        data.id = payment.id;
+      }
 
-      const updatedPayment = await updatePayment(updateData);
-
+      let response;
+      if (entityType === "customer") {
+        data.customerId = values.customerId;
+        response = payment ? await updatePayment(data) : await addPayment(data);
+      } else {
+        data.vendorId = values.vendorId;
+        response = payment
+          ? await updateVendorPayment(data)
+          : await addVendorPayment(data);
+      }
       toast(
         <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
           <code className="text-white">
-            {JSON.stringify(
-              "Payment updated successfully:",
-              updatedPayment,
-              null,
-              2
-            )}
+            Payment updated successfully : <hr />
+            {JSON.stringify(response, null, 2)}
           </code>
         </pre>
       );
@@ -138,14 +160,16 @@ export default function UpdatePaymentForm({ customers, payment }) {
 
         <FormField
           control={form.control}
-          name="customerId"
+          name={entityType === "customer" ? "customerId" : "vendorId"}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Customer</FormLabel>
+              <FormLabel>
+                {entityType === "customer" ? "Customer" : "Vendor"}
+              </FormLabel>
               <SelectWithSearch
                 onChange={field.onChange}
                 value={field.value}
-                options={customerOptions}
+                options={entityOptions}
               />
               <FormMessage />
             </FormItem>

@@ -1,8 +1,8 @@
 import React from "react";
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
-import { getPayments } from "@/services/dbService";
 import PaginationComponent from "@/components/pagination";
+import { getPayments } from "@/services/paymentService";
 
 const page = async ({ searchParams }) => {
   const page = searchParams.page ? parseInt(searchParams.page, 10) : 1;

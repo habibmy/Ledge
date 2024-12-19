@@ -28,34 +28,3 @@ export const getVendors = async () => {
     return Promise.reject(error);
   }
 };
-
-export const addVendorPayment = async ({
-  amount,
-  paymentDate,
-  note,
-  vendorId,
-}) => {
-  try {
-    const payment = await prisma.VendorPayment.create({
-      data: {
-        amount,
-        paymentDate,
-        note,
-        vendorId,
-      },
-    });
-
-    await prisma.vendor.update({
-      where: { id: vendorId },
-      data: {
-        balance: {
-          decrement: amount, // Subtract payment from balance
-        },
-      },
-    });
-    return payment;
-  } catch (error) {
-    console.error(error);
-    return Promise.reject(error);
-  }
-};
