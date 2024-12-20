@@ -44,7 +44,11 @@ export default function CustomerForm({ data }) {
       address: data?.address || "", // Initialize with an empty string for the address field
       phone: data?.phone || "", // Initialize with an empty string for the phone field
       balance: data?.balance || 0, // Initialize with 0 for the balance field
-      customRates: data?.customRates || [{ size: 0, rate: 0 }], // Initialize with one empty size-rate pair
+      customRates:
+        data?.customRates?.length > 0
+          ? data.customRates
+          : [{ size: 0, rate: 0 }],
+      // Initialize with one empty size-rate pair
     },
   });
 

@@ -1,7 +1,9 @@
 "use client";
 
+import Link from "next/link";
+
 const { Button } = require("@/components/ui/button");
-const { ArrowUpDown, ArrowUp, ArrowDown } = require("lucide-react");
+const { Pencil } = require("lucide-react");
 
 export const columns = [
   {
@@ -25,18 +27,16 @@ export const columns = [
     header: "Total",
   },
   {
-    accessorKey: "actions",
-    header: "Actions",
+    id: "actions",
     cell: ({ row }) => {
+      const id = row.original.id;
+
       return (
-        <div className="flex gap-2">
-          <Button variant="outline" size="icon">
-            <ArrowUp className="h-4 w-4" />
+        <Link href={"/customers/update/" + id}>
+          <Button size="icon">
+            <Pencil className="h-4 w-4" />
           </Button>
-          <Button variant="outline" size="icon">
-            <ArrowDown className="h-4 w-4" />
-          </Button>
-        </div>
+        </Link>
       );
     },
   },
