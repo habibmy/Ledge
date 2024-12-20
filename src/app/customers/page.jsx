@@ -1,13 +1,12 @@
 import React from "react";
-import { DataTable } from "./data-table";
 import { columns } from "./columns";
 import { getCustomers } from "@/services/dbService";
+import { DataTable } from "@/components/data-table";
 
 const page = async () => {
   let data = [];
   try {
     data = await getCustomers();
-    console.log(data);
   } catch (error) {
     console.error(error);
   }

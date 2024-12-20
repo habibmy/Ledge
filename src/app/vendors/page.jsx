@@ -1,7 +1,7 @@
 import React from "react";
-import { DataTable } from "./data-table";
 import { columns } from "./columns";
 import { getVendors } from "@/services/dbService/vendorDbService";
+import { DataTable } from "@/components/data-table";
 
 const page = async () => {
   let data = [];

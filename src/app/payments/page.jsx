@@ -1,8 +1,8 @@
 import React from "react";
-import { DataTable } from "./data-table";
 import { columns } from "./columns";
 import PaginationComponent from "@/components/pagination";
 import { getPayments } from "@/services/paymentService";
+import { DataTable } from "@/components/data-table";
 
 const page = async ({ searchParams }) => {
   const page = searchParams.page ? parseInt(searchParams.page, 10) : 1;
@@ -15,7 +15,14 @@ const page = async ({ searchParams }) => {
   return (
     <div>
       <h2 className="text-3xl font-serif mb-3">Payments</h2>
-      <DataTable columns={columns} data={payments} />
+      <DataTable
+        columns={columns}
+        data={payments}
+        sortBy={{
+          id: "paymentDate",
+          desc: true,
+        }}
+      />
 
       {/* Pagination Controls */}
       <PaginationComponent page={page} totalPages={totalPages} />
