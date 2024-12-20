@@ -1,4 +1,12 @@
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
+import {
+  Calendar,
+  Home,
+  Inbox,
+  Search,
+  Settings,
+  ShoppingBag,
+  ShoppingCart,
+} from "lucide-react";
 
 import {
   Sidebar,
@@ -10,6 +18,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import NavGroup from "./NavGroup";
 
 // Menu items.
 const items = [
@@ -18,16 +27,7 @@ const items = [
     url: "/",
     icon: Home,
   },
-  {
-    title: "Add Customer",
-    url: "/customers/add",
-    icon: Calendar,
-  },
-  {
-    title: "View Ledger",
-    url: "/customers",
-    icon: Search,
-  },
+
   {
     title: "Settings",
     url: "#",
@@ -37,14 +37,41 @@ const items = [
 
 const salesItems = [
   {
-    title: "Add Sale",
-    url: "/sales/add",
-    icon: Inbox,
+    title: "Sales",
+    icon: ShoppingCart,
+    subItems: [
+      {
+        title: "Customers",
+        url: "/customers",
+        addNewUrl: "/customers/add",
+      },
+      {
+        title: "Payments Received",
+        url: "/payments",
+        addNewUrl: "/payments/add",
+      },
+      {
+        title: "View Sales",
+        url: "/sales",
+        addNewUrl: "/sales/add",
+      },
+    ],
   },
   {
-    title: "View Sales",
-    url: "/sales",
-    icon: Inbox,
+    title: "Purchase",
+    icon: ShoppingBag,
+    subItems: [
+      {
+        title: "Vendors",
+        url: "/vendors",
+        addNewUrl: "/vendors/add",
+      },
+      {
+        title: "Payments Made",
+        url: "/vendorPayments",
+        addNewUrl: "/vendorPayments/add",
+      },
+    ],
   },
 ];
 
@@ -69,46 +96,8 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-        <SidebarGroup>
-          <SidebarGroupLabel>Sale</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {salesItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-        <SidebarGroup>
-          <SidebarGroupLabel>Payment</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <a href="/payments/add">
-                    <Inbox />
-                    <span>Add Payment</span>
-                  </a>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <a href="/payments">
-                    <Inbox />
-                    <span>View Payments</span>
-                  </a>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
+
+        <NavGroup data={salesItems} />
       </SidebarContent>
     </Sidebar>
   );
