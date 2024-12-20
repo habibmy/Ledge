@@ -6,12 +6,14 @@ export const addCustomer = async ({
   name,
   address,
   phone,
+  balance,
   customRates, // {rate,size}[]
 }) => {
   const customerData = {
     name,
     address,
     phone,
+    balance,
   };
   if (customRates) {
     customerData.customRates = {
@@ -65,17 +67,60 @@ export const getCustomersWithRates = async () => {
 export const getCustomer = async (id) => {
   try {
     const customer = await prisma.customer.findUnique({
+      select: {
+        id: true,
+        name: true,
+        address: true,
+        phone: true,
+        balance: true,
+        customRates: true,
+      },
       where: {
         id,
       },
-      include: {
-        customRates: true,
-      },
     });
-    console.log(customer);
     return customer;
   } catch (error) {
     console.error(error);
+    return Promise.reject(error);
+  }
+};
+
+export const updateCustomer = async (updatedFields) => {
+  const { id, name, address, phone, balance, customRates } = updatedFields;
+
+  try {
+    const customerData = {
+      ...(name && { name }),
+      address: address || null,
+      phone: phone || null,
+      ...(balance !== undefined && { balance }), // Allow 0 or negative balances
+    };
+
+    // Handle updating custom rates if provided
+    if (customRates) {
+      customerData.customRates = {
+        deleteMany: {}, // Deletes all existing custom rates for the customer
+        create: customRates, // Re-creates the custom rates from the input
+      };
+    }
+
+    const updatedCustomer = await prisma.customer.update({
+      where: { id },
+      data: customerData,
+      select: {
+        id: true,
+        name: true,
+        address: true,
+        phone: true,
+        balance: true,
+        customRates: true,
+      },
+    });
+
+    return updatedCustomer;
+  } catch (error) {
+    console.error("Error updating customer:", error);
     return Promise.reject(error);
   }
 };
