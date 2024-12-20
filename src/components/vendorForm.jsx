@@ -79,7 +79,7 @@ export default function VendorForm({ data }) {
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input placeholder="Customer's Name" {...field} />
+                <Input placeholder="Vendor's Name" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -93,7 +93,7 @@ export default function VendorForm({ data }) {
             <FormItem>
               <FormLabel>Address</FormLabel>
               <FormControl>
-                <Input placeholder="Customer's Address" {...field} />
+                <Input placeholder="Vendor's Address" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
