@@ -28,3 +28,40 @@ export const getVendors = async () => {
     return Promise.reject(error);
   }
 };
+
+export const getVendor = async (id) => {
+  try {
+    const vendor = await prisma.vendor.findUnique({
+      where: {
+        id,
+      },
+    });
+    return vendor;
+  } catch (error) {
+    console.error(error);
+    return Promise.reject(error);
+  }
+};
+
+export const updateVendor = async (updatedFields) => {
+  const { id, name, address, phone, balance } = updatedFields;
+
+  try {
+    const vendorData = {
+      ...(name && { name }),
+      address: address || null,
+      phone: phone || null,
+      ...(balance !== undefined && { balance }), // Allow 0 or negative balances
+    };
+
+    const updatedVendor = await prisma.vendor.update({
+      where: { id },
+      data: vendorData,
+    });
+
+    return updatedVendor;
+  } catch (error) {
+    console.error("Error updating customer:", error);
+    return Promise.reject(error);
+  }
+};
