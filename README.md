@@ -21,14 +21,14 @@ Ledge is a lightweight and intuitive accounting application designed to help sma
 - [x] Assign custom rates for specific customers.
 - [x] Fetch default rates for customers without custom rates.
 - [x] Record sales and calculate totals.
-- [ ] Add payment tracking for customers.
-- [ ] Compute and display outstanding balances for customers.
+- [x] Add payment tracking for customers.
+- [x] Compute and display outstanding balances for customers.
 - [ ] Dashboard for financial summaries and insights.
 
 ### **User Interface**
 
-- [ ] Create user-friendly forms for adding and editing data.
-- [ ] Display customer balances and payment history in an organized manner.
+- [x] Create user-friendly forms for adding and editing data.
+- [x] Display customer balances and payment history in an organized manner.
 - [ ] Interactive sales reports with filtering and export options.
 
 ### **Enhancements**
