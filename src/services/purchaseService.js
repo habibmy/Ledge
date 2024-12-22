@@ -37,6 +37,9 @@ export const createPurchase = async ({
         },
       },
     });
+    if (purchase) {
+      purchase.amount = purchase.amount.toNumber();
+    }
     return purchase;
   } catch (error) {
     console.error(error);
@@ -76,6 +79,11 @@ export const getPurchases = async (page = 1, pageSize = 10) => {
     });
 
     const totalPurchases = await prisma.purchase.count(); // Get total sales count for pagination
+    if (purchases) {
+      purchases.forEach((purchase) => {
+        purchase.amount = purchase.amount.toNumber();
+      });
+    }
 
     return {
       purchases,
@@ -98,6 +106,11 @@ export const getpurchase = async (id) => {
         products: true,
       },
     });
+
+    if (purchase) {
+      purchase.amount = purchase.amount.toNumber();
+    }
+
     return purchase;
   } catch (error) {
     console.error(error);
@@ -146,7 +159,9 @@ export const updatePurchase = async ({
         },
       },
     });
-
+    if (purchase) {
+      purchase.amount = purchase.amount.toNumber();
+    }
     return purchase;
   } catch (error) {
     console.error(error);

@@ -57,7 +57,9 @@ export const getCustomersWithRates = async () => {
         rates: await customer.rates(),
       };
     });
-    return Promise.all(customers);
+    customers = await Promise.all(customers);
+    customers = JSON.parse(JSON.stringify(customers));
+    return customers;
   } catch (error) {
     console.error(error);
     return Promise.reject(error);
@@ -79,6 +81,11 @@ export const getCustomer = async (id) => {
         id,
       },
     });
+    if (customer.customRates) {
+      customer.customRates.forEach((each) => {
+        each.rate = each.rate.toNumber();
+      });
+    }
     return customer;
   } catch (error) {
     console.error(error);
@@ -117,6 +124,11 @@ export const updateCustomer = async (updatedFields) => {
         customRates: true,
       },
     });
+    if (updatedCustomer.customRates) {
+      updatedCustomer.customRates.forEach((each) => {
+        each.rate = each.rate.toNumber();
+      });
+    }
 
     return updatedCustomer;
   } catch (error) {

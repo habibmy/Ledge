@@ -70,7 +70,7 @@ export default function PaymentForm({
 
     defaultValues: {
       paymentDate: payment?.paymentDate || new Date(),
-      amount: payment?.amount || "",
+      amount: payment?.amount?.toString() || "",
       note: payment?.note || "",
       [`${entityType}Id`]: payment?.[`${entityType}Id`] || "",
     },

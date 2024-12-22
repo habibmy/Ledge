@@ -32,6 +32,10 @@ export const createSale = async ({
         },
       },
     });
+    if (sale) {
+      sale.amount = sale.amount.toNumber();
+      sale.rate = sale.rate.toNumber();
+    }
     return sale;
   } catch (error) {
     console.error(error);
@@ -70,6 +74,12 @@ export const getSales = async (page = 1, pageSize = 20) => {
     });
 
     const totalSales = await prisma.sale.count(); // Get total sales count for pagination
+    if (sales) {
+      sales.forEach((sale) => {
+        sale.amount = sale.amount.toNumber();
+        sale.rate = sale.rate.toNumber();
+      });
+    }
 
     return {
       sales,
@@ -91,6 +101,10 @@ export const getSale = async (id) => {
         customer: true,
       },
     });
+    if (sale) {
+      sale.amount = sale.amount.toNumber();
+      sale.rate = sale.rate.toNumber();
+    }
     return sale;
   } catch (error) {
     console.error(error);
@@ -136,6 +150,10 @@ export const updateSale = async ({
       },
     });
 
+    if (sale) {
+      sale.amount = sale.amount.toNumber();
+      sale.rate = sale.rate.toNumber();
+    }
     return sale;
   } catch (error) {
     console.error(error);

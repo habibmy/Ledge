@@ -1,3 +1,4 @@
+"use server";
 import React from "react";
 import { getVendors } from "@/services/dbService";
 import PaymentForm from "@/components/paymentForm";

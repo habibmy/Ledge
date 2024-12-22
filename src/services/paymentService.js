@@ -26,6 +26,9 @@ export const addVendorPayment = async ({
         },
       },
     });
+    if (payment) {
+      payment.amount = payment.amount.toNumber();
+    }
     return payment;
   } catch (error) {
     console.error(error);
@@ -47,6 +50,11 @@ export const getVendorPayments = async (page = 1, pageSize = 10) => {
       },
     });
     const totalPayments = await prisma.VendorPayment.count();
+    if (payments) {
+      payments.forEach((payment) => {
+        payment.amount = payment.amount.toNumber();
+      });
+    }
     return {
       payments,
       totalPayments,
@@ -67,6 +75,9 @@ export const getVendorPayment = async (id) => {
         vendor: true,
       },
     });
+    if (payment) {
+      payment.amount = payment.amount.toNumber();
+    }
     return payment;
   } catch (error) {
     console.error(error);
@@ -107,7 +118,9 @@ export const updateVendorPayment = async ({
         },
       },
     });
-
+    if (payment) {
+      payment.amount = payment.amount.toNumber();
+    }
     return payment;
   } catch (error) {
     console.error(error);
@@ -134,6 +147,9 @@ export const addPayment = async ({ amount, paymentDate, note, customerId }) => {
         },
       },
     });
+    if (payment) {
+      payment.amount = payment.amount.toNumber();
+    }
     return payment;
   } catch (error) {
     console.error(error);
@@ -174,6 +190,9 @@ export const updatePayment = async ({
         },
       },
     });
+    if (payment) {
+      payment.amount = payment.amount.toNumber();
+    }
 
     return payment;
   } catch (error) {
@@ -196,6 +215,11 @@ export const getPayments = async (page = 1, pageSize = 20) => {
       },
     });
     const totalPayments = await prisma.CustomerPayment.count();
+    if (payments) {
+      payments.forEach((payment) => {
+        payment.amount = payment.amount.toNumber();
+      });
+    }
     return {
       payments,
       totalPayments,
@@ -216,6 +240,9 @@ export const getPayment = async (id) => {
         customer: true,
       },
     });
+    if (payment) {
+      payment.amount = payment.amount.toNumber();
+    }
     return payment;
   } catch (error) {
     console.error(error);
