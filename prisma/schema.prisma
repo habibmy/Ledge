@@ -13,7 +13,7 @@ model Sale {
   description String?
   amount      Decimal  @db.Money
   size        Int
-  quantity    Decimal  @db.Money
+  quantity    Float
   rate        Decimal  @db.Money
   customer    Customer @relation(fields: [customerId], references: [id])
   customerId  Int
@@ -79,14 +79,15 @@ model Vendor {
 }
 
 model Purchase {
-  id          Int      @id @default(autoincrement())
+  id          Int       @id @default(autoincrement())
   vendorId    Int
-  vendor      Vendor   @relation(fields: [vendorId], references: [id])
-  amount      Decimal  @db.Money
+  vendor      Vendor    @relation(fields: [vendorId], references: [id])
+  products    Product[]
+  amount      Decimal   @db.Money
   description String?
-  date        DateTime @db.Timestamptz(3)
-  createdAt   DateTime @default(now()) @db.Timestamptz(3)
-  updatedAt   DateTime @updatedAt() @db.Timestamptz(3)
+  date        DateTime  @db.Timestamptz(3)
+  createdAt   DateTime  @default(now()) @db.Timestamptz(3)
+  updatedAt   DateTime  @updatedAt() @db.Timestamptz(3)
 
   @@map("purchases")
 }
@@ -102,4 +103,16 @@ model VendorPayment {
   note        String?
 
   @@map("vendor_payments")
+}
+
+model Product {
+  id         Int      @id @default(autoincrement())
+  purchaseId Int
+  product    String
+  quantity   Float
+  rate       Float
+  amount     Float
+  purchase   Purchase @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
+
+  @@map("products")
 }
