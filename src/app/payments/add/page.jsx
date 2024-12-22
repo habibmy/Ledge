@@ -6,7 +6,6 @@ const AddPaymentPage = async () => {
   let customers = [];
   try {
     customers = await getCustomers();
-    console.log(customers);
   } catch (error) {
     console.error(error);
   }

@@ -132,7 +132,6 @@ export default function UpdatePurchaseForm({ vendors, purchase }) {
       values.id = purchase.id;
       values.date = values.date;
       values.description = values.description;
-      console.log(values);
       await updatePurchase(values);
       toast(
         <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">

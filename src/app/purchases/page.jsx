@@ -9,7 +9,6 @@ const page = async ({ searchParams }) => {
   const pageSize = 10;
 
   const { purchases, totalPurchases } = await getPurchases(page, pageSize);
-  console.log(purchases);
 
   const totalPages = Math.ceil(totalPurchases / pageSize);
 

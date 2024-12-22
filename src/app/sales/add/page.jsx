@@ -6,7 +6,6 @@ const AddSalePage = async () => {
   let customers = [];
   try {
     customers = await getCustomersWithRates();
-    console.log(customers);
   } catch (error) {
     console.error(error);
   }

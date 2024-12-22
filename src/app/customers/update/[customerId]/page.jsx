@@ -6,7 +6,6 @@ const UpdateCustomerPage = async ({ params }) => {
   let customer = null;
   try {
     customer = await getCustomer(Number(customerId));
-    console.log(customer);
   } catch (error) {
     console.error(error);
   }

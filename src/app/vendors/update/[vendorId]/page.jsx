@@ -6,7 +6,6 @@ const UpdateVendorPage = async ({ params }) => {
   let vendor = null;
   try {
     vendor = await getVendor(Number(vendorId));
-    console.log(vendor);
   } catch (error) {
     console.error(error);
   }

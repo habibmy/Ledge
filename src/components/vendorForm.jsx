@@ -49,7 +49,6 @@ export default function VendorForm({ data }) {
       } else {
         response = await addVendor(values);
       }
-      console.log("Submitted Values:", values);
 
       toast.success(
         <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">

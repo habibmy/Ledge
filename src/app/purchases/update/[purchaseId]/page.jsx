@@ -10,7 +10,6 @@ const UpdatePurchasePage = async ({ params }) => {
   try {
     vendors = await getVendors();
     purchase = await getpurchase(Number(purchaseId));
-    console.log(vendors);
   } catch (error) {
     console.error(error);
   }

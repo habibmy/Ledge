@@ -10,7 +10,6 @@ const UpdatePaymentPage = async ({ params }) => {
   try {
     customers = await getCustomers();
     payment = await getPayment(Number(paymentId));
-    console.log(customers);
   } catch (error) {
     console.error(error);
   }

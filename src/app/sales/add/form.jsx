@@ -115,7 +115,6 @@ export default function AddSaleForm({ customers }) {
       values.quantity = Number(values.quantity);
       values.amount = Number(values.amount);
       values.size = Number(values.size);
-      console.log(values);
       await createSale(values);
       toast(
         <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">

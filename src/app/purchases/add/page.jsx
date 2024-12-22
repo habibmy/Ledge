@@ -6,7 +6,6 @@ const AddPurchasePage = async () => {
   let vendors = [];
   try {
     vendors = await getVendors();
-    console.log(vendors);
   } catch (error) {
     console.error(error);
   }

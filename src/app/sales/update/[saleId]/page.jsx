@@ -10,7 +10,6 @@ const UpdateSalePage = async ({ params }) => {
   try {
     customers = await getCustomersWithRates();
     sale = await getSale(Number(saleId));
-    console.log(customers);
   } catch (error) {
     console.error(error);
   }

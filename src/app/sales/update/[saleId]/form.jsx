@@ -126,7 +126,6 @@ export default function UpdateSaleForm({ customers, sale }) {
         description: values.description,
         customerId: Number(values.customerId),
       };
-      console.log(updateData);
       // await createSale(values);
 
       const updatedSale = await updateSale(updateData);
