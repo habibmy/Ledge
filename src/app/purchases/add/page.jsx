@@ -12,7 +12,7 @@ const AddPurchasePage = async () => {
   }
   return (
     <div>
-      <h3 className="text-3xl font-semibold text-center">Add a sale</h3>
+      <h3 className="text-3xl font-semibold text-center">Record a purchase</h3>
       <AddPurchaseForm vendors={vendors} />
     </div>
   );
