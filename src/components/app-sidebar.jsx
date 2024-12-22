@@ -71,6 +71,11 @@ const salesItems = [
         url: "/vendorPayments",
         addNewUrl: "/vendorPayments/add",
       },
+      {
+        title: "View Purchases",
+        url: "/purchases",
+        addNewUrl: "/purchases/add",
+      },
     ],
   },
 ];

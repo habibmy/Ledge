@@ -1,3 +1,4 @@
+"use server";
 import React from "react";
 import { getCustomersWithRates, getSale } from "@/services/dbService";
 import UpdateSaleForm from "./form";
