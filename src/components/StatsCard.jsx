@@ -8,27 +8,21 @@ import {
 } from "@/components/ui/card";
 import { ShoppingCartIcon } from "lucide-react";
 
-const StatsCard = () => {
+const StatsCard = ({ title, description, value }) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Total Sales</CardTitle>
-        <CardDescription>In this month</CardDescription>
+        <CardTitle>{title}</CardTitle>
+        <CardDescription>{description}</CardDescription>
       </CardHeader>
       <CardContent>
-        <article className="flex items-center gap-4 rounded-lg border border-gray-100 bg-white p-6">
-          <span className="rounded-full bg-blue-100 p-3 text-blue-600">
-            <ShoppingCartIcon />
-          </span>
-
-          <div>
-            <p className="text-2xl font-medium text-gray-900">₹240.94</p>
-          </div>
-        </article>
+        <div>
+          <p className="text-2xl font-medium text-gray-900">{value}</p>
+        </div>
       </CardContent>
-      <CardFooter>
+      {/* <CardFooter>
         <p>Card Footer</p>
-      </CardFooter>
+      </CardFooter> */}
     </Card>
   );
 };
