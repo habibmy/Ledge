@@ -4,6 +4,7 @@ import "./globals.css";
 import NavMenu from "@/components/nav-menu";
 import TopBreadcrumb from "@/components/TopBreadcrumb";
 import { Toaster } from "@/components/ui/sonner";
+import Footer from "@/components/Footer";
 
 export const metadata = {
   title: "My Application",
@@ -32,6 +33,7 @@ export default function RootLayout({ children }) {
                 {children}
               </div>
             </div>
+            <Footer />
           </main>
           <Toaster />
         </SidebarProvider>
